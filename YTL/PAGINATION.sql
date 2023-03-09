@@ -1,0 +1,23 @@
+
+
+SELECT *
+FROM PERSON.Address
+ORDER BY AddressID
+OFFSET 10 ROWS
+FETCH NEXT 10 ROWS ONLY
+
+
+
+SELECT *
+FROM PERSON.Address
+ORDER BY AddressID
+OFFSET 10 ROWS
+FETCH FIRST 10 PERCENT ROWS ONLY;
+GO
+
+
+
+
+ORDER BY columns [ASC |DESC]  
+OFFSET no_of_rows_to_skip  
+FETCH {FIRST | NEXT} no_of_rows_to_return {ROW | ROWS} ONLY  
