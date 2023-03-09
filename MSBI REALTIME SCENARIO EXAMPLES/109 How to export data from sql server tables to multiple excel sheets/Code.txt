@@ -1,0 +1,119 @@
+public void Main()
+		{
+            string currentdatetime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string LogFolder = @"D:\Files\Logs";
+            OleDbConnection Excel_OLE_Connection = null;
+            OleDbCommand Excel_OLE_Command = null;
+            SqlConnection sqlCon = null;
+
+            try
+            {
+                //Provide source table list here
+                string TableList = "Employee,Addresses,email";
+                string[] TableArray = new string[] { "" };
+                TableArray = TableList.Split(',');
+                string TableName = "";
+                //Provide Excel file path here without extension
+                string DestfileName = @"D:\Files\Customer";
+                if (File.Exists(DestfileName + ".XLSX"))
+                {
+                    File.Delete(DestfileName + ".XLSX");
+                }
+                string connectionString = @"Server = DESKTOP-EKJ1P64\SQL2019; Database = Test; Trusted_Connection = True; ";
+                SqlCommand sqlCmd;
+                string connstring = "Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + DestfileName
+                        + ";" + "Extended Properties=\"Excel 12.0 Xml;HDR=YES;\"";
+
+                for (int i = 0; i < TableArray.Length; i++)
+                {
+                    TableName = TableArray[i];
+
+                    string CreateTableQuery = "Create Table [" + TableName + "] (";
+                    string columnList = "";
+                    string Columns = "";
+
+                    sqlCon = new SqlConnection(connectionString);
+                    sqlCon.Open();
+
+                    sqlCmd = new SqlCommand(@"SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '" + TableName + "'", sqlCon);
+
+                    using (SqlDataReader rdr = sqlCmd.ExecuteReader())
+                    {
+                        int j = 0;
+                        while (rdr.Read())
+                        {
+                            var myString = rdr.GetString(0);
+
+                            if (j == 0)
+                            {
+                                columnList = "[" + myString + "] Text,";
+                                Columns = "[" + myString + "],";
+                            }
+                            else
+                            {
+                                columnList = columnList + " [" + myString + "] Text,";
+                                Columns = Columns + " [" + myString + "],";
+                            }
+                            j++;
+
+                        }
+                        columnList = columnList.Remove(columnList.Length - 1);
+                        Columns = Columns.Remove(Columns.Length - 1);
+                    }
+                    CreateTableQuery = CreateTableQuery + columnList + ")";
+
+                    Excel_OLE_Connection = new OleDbConnection();
+                    Excel_OLE_Command = new OleDbCommand();
+
+                    Excel_OLE_Connection.ConnectionString = connstring;
+                    Excel_OLE_Connection.Open();
+                    Excel_OLE_Command.Connection = Excel_OLE_Connection;
+
+                    Excel_OLE_Command.CommandText = CreateTableQuery;
+                    Excel_OLE_Command.ExecuteNonQuery();
+
+                    sqlCmd = new SqlCommand(@"SELECT * FROM " + TableName + "", sqlCon);
+
+                    string insert_query = "Insert into [" + TableName + "] ( " + Columns + " ) VALUES(";
+                    using (SqlDataReader rdr = sqlCmd.ExecuteReader())
+                    {
+                        while (rdr.Read())
+                        {
+                            string myString = "";
+                            string insert_query2 = insert_query;
+                            for (var b = 0; b < rdr.FieldCount; b++)
+                            {
+                                myString = rdr[b].ToString();
+                                myString = convertQuotes(myString);
+                                insert_query2 = insert_query2 + "'" + myString + "',";
+                            }
+
+                            insert_query2 = insert_query2.Remove(insert_query2.Length - 1);
+                            insert_query2 = insert_query2 + ")";
+                            Excel_OLE_Command.CommandText = insert_query2;
+                            Excel_OLE_Command.ExecuteNonQuery();
+                        }
+                    }
+
+                }
+
+                Excel_OLE_Connection.Close();
+                sqlCon.Close();
+            }
+
+            catch (Exception exception)
+            {
+                using (StreamWriter sw = File.CreateText(LogFolder + "\\" + "ErrorLog_" + currentdatetime + ".log"))
+                {
+                    sw.WriteLine(exception.ToString());
+                }
+
+            }
+
+            Dts.TaskResult = (int)ScriptResults.Success;
+        }
+
+        public static string convertQuotes(string str)
+        {
+            return str.Replace("'", "''");
+        }
