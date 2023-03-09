@@ -4,6 +4,9 @@ Now let’s see on, how to use CTE query for our SQL server table data.
 Create Database: First, we create a database for creating our table
 
  
+ 
+ 
+ 
 --USE MASTER    
 --GO    
 ---- 1) Check for the Database Exists .If the database is exist then drop and create new DB    
