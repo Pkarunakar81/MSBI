@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RptDataSource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Name="DataSource1">
+  <ConnectionProperties>
+    <Extension>SQL</Extension>
+    <ConnectString>Data Source=DESKTOP-KMESVE3;Initial Catalog=AdventureWorksDW2019</ConnectString>
+  </ConnectionProperties>
+  <DataSourceID>fb5d4d75-befb-4088-a925-d4a35a2a9182</DataSourceID>
+</RptDataSource>

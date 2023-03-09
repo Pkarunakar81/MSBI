@@ -1,0 +1,37 @@
+package COM;
+
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.internet.MimeMessage;
+
+public class Test {
+	private static final String SMTP_SERVER = "smtp server ";
+    private static final String USERNAME = "";
+    private static final String PASSWORD = "";
+
+    private static final String EMAIL_FROM = "From@gmail.com";
+    private static final String EMAIL_TO = "email_1@yahoo.com, email_2@gmail.com";
+    private static final String EMAIL_TO_CC = "";
+
+    private static final String EMAIL_SUBJECT = "Test Send Email via SMTP";
+    private static final String EMAIL_TEXT = "Hello Java Mail \n ABC123";
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 System.out.println("Response: ");
+		 
+		 
+		 System.out.println("Response: ");
+    	 
+	        Properties prop = System.getProperties();
+	        prop.put("mail.smtp.host", SMTP_SERVER); //optional, defined in SMTPTransport
+	        prop.put("mail.smtp.auth", "true");
+	        prop.put("mail.smtp.port", "25"); // default port 25
+
+	        Session session = Session.getInstance(prop, null);
+	        Message msg = new MimeMessage(session);
+		 
+	}
+
+}
