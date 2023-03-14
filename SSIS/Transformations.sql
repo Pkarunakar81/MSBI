@@ -65,3 +65,36 @@ Ex: - Sort ,aggregate
 		
 Diff between Synchronous & Asynchronous Transformations
 Diff between Partially\ Semi Blocking &	Non-Blockin Transformations
+
+
+
+
+
+2.	What is the difference between Lookup and Merge Join Transformation?
+
+Merge transformation is used to combine two sorted datasets (such as UNION operation).
+Merge Join needs both inputs to be sorted.
+
+SSIS Merge Join transformation is used to combine columns between different rows (such as SQL Joins(Full, Left, and inner join.)).
+ 
+
+Look Up is used to find value(look for a value) in destination table with respect to source column values, i.e. check existence of source column value against destination column values.
+ 
+
+Fuzzy Lookup transformation uses fuzzy matching to return one or more close matches in the reference table.
+
+Fuzzy Grouping performs a data cleaning task by identifying rows of data that are likely to be duplicates.
+
+Merge Join allows you to join to multiple columns based on one or more criterion, whereas a Lookup is more limited in that it only fetches a one or more values based on some matching column information -- the lookup query is going to be run for each value in your data source (though SSIS will cache the data source if it can).
+
+Union All transformation can accept more than two datasets from input and combine.
+
+3.	How many outputs can Aggregate Transformation have?
+
+The Aggregate transformation has one input and one or more outputs.
+Be prepared with These questions and topic:
+
+
+
+1.	Can you use Lookup Transformation without using OLEDB Connection?
+NA

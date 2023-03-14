@@ -14,6 +14,11 @@ ON UPDATE CASCADE
 It means if we delete any customer record from the customer table, then the related records in the contact table should also be deleted. And the ON UPDATE CASCADE will update automatically on the parent table to referenced fields in the child table(Here, it is Customer_Id).
 
 
+A unique key is a single or combination of fields that ensure all values stores in the column will be unique. It can accept a null value but only one null value per column is allowed. We can modify the unique key column values.
+
+
+The unique key is also a unique identifier for records when the primary key is not present in the table.
+
 
 
 

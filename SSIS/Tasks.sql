@@ -16,3 +16,9 @@ four types of containers used in SSIS:
 
 ●	for each loop container – Loop through container-based on the enumerator.
 
+Workflow : - sequential set of instructions or commands that instruct the program executor to follow specific flow when executing tasks and containers within an SSIS package. 
+Data profiling task : - analysis is done to better understand the source data's state in terms of data cleaning, data pattern identification, numbers or nulls in data, etc.
+
+doesn't help while developing standard recurring ETL packages.
+
+
