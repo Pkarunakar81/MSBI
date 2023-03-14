@@ -1,0 +1,8 @@
+
+Ques.49. What are orphan records?
+
+Ans. Orphan records are the records having foreign key to a parent record which doesn't exist or got deleted.
+ 
+Ques.50. How can we remove orphan records from a table?
+
+Ans. In order to remove orphan records from the database we need to create a join on the parent and child tables and then remove the rows from the child table where id IS NULL.
