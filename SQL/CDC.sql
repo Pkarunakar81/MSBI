@@ -1,5 +1,3 @@
-
-
 --to enable the cdc
 USE [CDC Testing]
 GO
