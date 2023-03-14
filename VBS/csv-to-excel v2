@@ -1,0 +1,42 @@
+Sub ConvertCSVToXlsx()
+    
+    Dim myfile As String
+    Dim oldfname As String, newfname As String
+    Dim workfile
+    Dim folderName As String
+    
+    Application.DisplayAlerts = False
+    Application.ScreenUpdating = False
+    
+'   Capture name of current file
+    myfile = ActiveWorkbook.Name
+    
+'   Set folder name to work through
+    folderName = "e:\Test\"
+    
+'   Loop through all CSV filres in folder
+    workfile = Dir(folderName & "*.CSV")
+    Do While workfile <> ""
+      '  .TextFileConsecutiveDelimiter = True
+       ' .TextFileTabDelimiter = False
+       ' .TextFileSemicolonDelimiter = True
+       ' .TextFileCommaDelimiter = True
+       ' .TextFileOtherDelimiter = "|"
+'       Open CSV file
+        Workbooks.Open fileName:=folderName & workfile
+'       Capture name of old CSV file
+        oldfname = ActiveWorkbook.FullName
+'       Convert to XLSX
+        newfname = folderName & Left(ActiveWorkbook.Name, Len(ActiveWorkbook.Name) - 4) & ".xlsx"
+        ActiveWorkbook.SaveAs fileName:=newfname, FileFormat:=xlOpenXMLWorkbook, CreateBackup:=False
+        ActiveWorkbook.Close
+'       Delete old CSV file
+        Kill oldfname
+        Windows(myfile).Activate
+        workfile = Dir()
+    Loop
+    
+    Application.DisplayAlerts = True
+    Application.ScreenUpdating = True
+
+End Sub
