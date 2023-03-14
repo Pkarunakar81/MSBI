@@ -1,1 +1,0 @@
-Fulltext search extensions/integration
