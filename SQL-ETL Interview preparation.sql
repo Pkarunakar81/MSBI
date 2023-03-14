@@ -7,32 +7,11 @@ The unique key is also a unique identifier for records when the primary key is n
 
 
 
-set operators: - to merge data from one or more tables of the same kind
-SQL joins combine columns from separate tables, whereas SQL set operators combine rows
-from different queries.
-UNION: - combines two or more results and removes the duplicate rows from the tables.
-
-UNION ALL: - combines two or more results and does not remove the duplicate rows from the tables.
-
-INTERSECT: -returns the common records,It always retrieves unique records and arranges them in ascending order by default.
-
-MINUS: -This operator returns the records from the first query, which is not found in the second query.
-
-
-
 
 
 SQL Injection: - type of vulnerability in website and web app code that allows attackers to control back-end operations and access, retrieve, and destroy sensitive data from databases.
 
 
-OLTP: - (Online Transaction Processing): - focused on query processing, maintaining data integrity in multi-access environments as well as effectiveness that is measured by the total number of transactions per second. An example of the OLTP system is the ATM center.
-
-OLAP : -stands for Online Analytical Processing,
-It is characterized by a large volume of data.
-
-OLAP uses the data warehouse.
-It is designed for analysis of business measures by category and attributes.
- 
 
 
 Collation : -Collation refers to a set of rules that determine how data is sorted and compared.
@@ -81,143 +60,11 @@ Bulk Update locks - Used in case of bulk operations when the TABLOCK hint is use
 
 
 
-Whats new in 2017 sql version: -
-
-
-
-How will you handle performance issues in sql server
-
-1.	Query Taking Long time than usual processing
-
-2.	Blockage–wait type—
-
-https://www.sqlshack.com/troubleshooting-using-wait-stats-in-sql-server/
-
-Writelog : - Write log means there is a delay in writing to the log file.
-
-in the given database both data and log files in the same drive. In the case of SQL Server, the first data is written to the log file and then the data is written to the data file via CHECKPOINT operation. When both files are in the same drive, there will be contention in writing as indicated in the above result. The obvious action was to move the database log file to a different drive. After moving the log file to a different drive, the problem was solved.
-
-Wait Types	Reason	Actions	Avoid
-CXPACKET	Parallel processing	1. Most of the time this	Do not avoid parallelism.
-		is due to not the	
-		existence of proper	
-		indexes.	
-		2.Examine the query	
-		plan of the query.	
-		3.Read more details at
-	
-		CXPACKT.
-	
-ASYNC_NE	SQL Server is	Re-write the application	By looking at the name,
-TWORK_IO	waiting for a client to	code	you might think that it is
-	acknowledge receipt				something to do with the
-	of sent data.				network.
- 
-
-BACKUPBU	During the database
-
-FFER	backup, these types
-
-of wait types will
-
-occur.
-
-BACKUPIO
-
-BACKUPTH
-
-READ
-
-PAGEIOLAT	Waiting for a data file
-
-CH_SH	page to be read from
-
-disk to memory.
-
-
-PAGEIOLAT
-
-CH_EX
- 
-
-
-Most likely these types of wait types indicate, slowness of in backup disk.
-
-
-
-
-
-
-Need to analyze what tables are having the issue.
- 
-
-
-If it is a large database, you need to leave this until the backup is completed.
-
-
-
-
-
-
-Nothing to do with the IO subsystem.
-
- 
-
-3.	Does the database have enough available free space?
-
-4.	Database may face out of space error
-
-5.	Implement indexes that provide a benefit to your queries.
-
-6.	Place your tempdb files on dedicated high-speed disks
-
-7.	Make TempTB have the number of files equal to the CPU up
-
-to 8, make sure they are sized the same.
-
-8.	Grow your tempdb data files to a desired size
-
-9.	Does the database have enough available free space?
-
-10.	Are the statistics current?
-
-11.	Make sure you’re running index maintenance frequently.
-
-12.	Check your most expensive queries and stored procedures.
-
-13.	SQL Server Health Check
-
-14.	If these tips don’t help you or if you don’t have the time to investigate the underlying issue, it may be worth considering a SQL Server Health Check.
-
-15.	Review Resource Waits in the Activity Monitor
-
-16.	Keep in mind that anything less than 1000 ms (Recent Wait Time) is considered normal.
- 
-
-
-
-
 
 
 
 Ssis: - SQL Server Integration Services
  
-
-SQL Server 2005 added two new options:
-
-
-●	A variation on READ COMMITTED where you set
-
-READ_COMMITTED_SNAPHOT ON at the database level and any transaction that uses the READ COMMITTED isolation level will not acquire share locks and will not wait on any locks. Rather, you will get the committed version of all rows at the time the SELECT statement begins.
-
-●	A new isolation level called SNAPSHOT where you set
-
-ALLOW_SNAPSHOT_ISOLATION ON at the database level and any transaction that explicitly sets the transaction isolation level to snapshot will not acquire share locks and will not wait on any locks. Rather, you will get the committed version of all rows at the time the transaction begins.
-
-●	Chaos
-
-●	Unspecified
-
 
 
 
@@ -225,24 +72,6 @@ ALLOW_SNAPSHOT_ISOLATION ON at the database level and any transaction that expli
 
 
 SSIS Catalog: - used to store all the deployed packages,used to increase the security of the stored packages
-
-Task: - carry out an individual component of work divided into the following two categories:
-
-●	Database Maintenance Tasks
-
-●	Control Flow Tasks
-
-Bulk Insert Task: - used to upload vast amounts of data from flat files to SQL Server. In this process, only OLE DB connections to the destination database are supported. Container: - the set of tasks linked logically
-
-four types of containers used in SSIS:
- 
-●	Task Host container- Only one task is placed inside the container. This is the default container.
-●	Sequence Container – This container can be defned as a subset of package control fow.
-
-●	For loop container – Allows looping based on condition. Runs a control fow till the condition is met.
-
-●	for each loop container – Loop through container-based on the enumerator.
-
 
 
 types of connection or files that support SSIS
@@ -262,36 +91,8 @@ types of connection or files that support SSIS
 ●	XML
 
 
-Precedence Constraint : - commands that instruct the system to follow the specific order to execute tasks. Success,Failure,Completion.
 
-Breakpoint: - allows developers to pause the packages execution in the business intelligence system.o suddenly stop the execution at any desired point and enables the developers to re-review the status of variables, data or the entire package.
 
-A point in the processing of a program that the programmer wants to observe more closely by stopping the program and examining the contents of variables, buffers and memory
-
-checkpoint : - saving point that helps developers to restart or load the project from any specific point.
-
-used to restart the project from the point of failure instead of loading the entire project again.
-
-checkpoint data is not saved for Loop containers CheckpointUsage property set to Always or IfExists
-
-CHECKPOINT in the SSIS package works on the control flow level. We cannot configure it to execute the individual task at the data flow level.
-
-Check point data is not saved for each loop and for loop containers.
-
-Lookup Cache Modes
-
-Full Cache Mode: it fully loads the lookup table (reference dataset) in memory before executing the lookup transformation. It is the only available mode using a cache connection manager.
-
-Partial Cache Mode: the row is cached into the SSIS lookup cache only in the case when there is a subsequent match. Once the cache gets full, SSIS automatically starts removing
- 
-
-existing rows based on the match and usage stats. After that, new matching rows are loaded into the lookup cache.
-
-No Cache Mode:the lookup data is generated and loaded during the package execution. No data is stored within the cache memory.
-
-logging SSIS
-
-text files, XML files, SQL Server, SQL Server Profiler, Windows Event Log, etc.
 
 most critical errors
 Data Connection Errors:
@@ -304,47 +105,8 @@ doesn't help while developing standard recurring ETL packages.
 
 
 
-DelayValidation Property:
 
 
-DelayValidation Property is available on Task level, Connection Manager, Container and on Package level. By default the value of this property is set to false that means that when the package start execution, It validates all the Tasks, Containers, Connection Managers and objects( Tables,Views, Stored Procedures etc.) used by them. If any object such as table or destination file etc. is not available then Package validation fails and Package stop execution.
-
-By setting this property to True, We enforce our SSIS Package not to validate that Task, Connection Manager or entire Package at start but validate at run time.
-
-
-Real Time Examples for Using DelayValidation Property in SSIS Package:
-
-Example 1: Make Use of Temp Table in SSIS Package
-
-Example 2: Create Excel File with DateTime
-
-Example 3: How to Create Multiple Files Dynamically From a SQL Server Table
-
-
-Top 10 Frequently Asked SSIS Interview Questions
-1.	What are the Differences between SSIS and Informatica?
- 
-
-s:
- 
-Feature	SSIS	Informatica
-		
-Security	Secure to use	Secure to use
-		
-Administration & Maintenance	Easy to use	Difficult to maintain
-		
-Ease of Use	Easy to implement SSIS	Moderate
-		
-Performance	Performs well for Medium SQL	Performs well for Medium SQL
-	server environment	server environment
-		
-Productivity	Moderate	High while implementing large
-		applications
-		
-Product Maturity	Younger to Informatica	Elder than SSIS
-		
-Cost	No cost	Expensive
-		
 
 3.	What is the Difference between Execute TSQL Task and Execute SQL Task? Execute the TSQL Task:
 ●	Pros: Takes less memory, faster performance
@@ -387,107 +149,6 @@ Union All transformation can accept more than two datasets from input and combin
 
 The Aggregate transformation has one input and one or more outputs.
 Be prepared with These questions and topic:
-
-4.	Differentiate between SSRS 2005 and SSRS 2008 ?
-
-Differences between SSIS 2005 and 2008
-
-
-
-	SSIS 2005		SSIS 2008		
-Script Task	Here users can write the	Here users can write the scripts
-	scripts in VB only.	in C# and VB.
-DataProfilingTask	DataProfilingTask is not in SSIS	DataProfilingTask was introduced
-	2005.		in SSIS 2008.		
-Cache Transformation	Cache Transformation is not in	Cache Transformation was
-	SSIS 2005.		introduced in SSIS 2008.
-Lookup Transformation	In SSIS-2005 for Error Output	SSIS -2008 added an additional
-	look-ups had only the following feature “No match Out-Put” to
-	3 options.		the SSIS 2005.
-	1.	Fail Component			
-	2.	Ignore Failure			
-	3.	Redirect row			
-Cache Mode	Cache Mode is not in SSIS	Cache Mode is introduced in SSIS
-	2OO5.		2OO8. 3-Different Cache Mode in
-			SSIS 2008:		
-			1.	FULL CACHE MODE
-			2.	PARTIAL CACHE
-				MODE
-			3.	NO CACHE MODE.
-OLEDB Provider for	SSIS 2005 does not contains an SSIS 2008 contains an OLEDB
-Analysis Services	OLEDB Provider for Analysis	Provider for Analysis Services
-	Services				
-					
-
- 
-
-
-Differences between SSIS 2008 and 2012
-
-
-
-Undo And Redo	No Undo And Redo feature in	Undo And Redo feature
-	SSIS 2008	available in SSIS 2012.
-SSIS PARAMETERS	SSIS Parameters at package	SSIS Parameters at the package
-	level	level, task level and project
-		level.
-DQS TRANSFORMATION No DQS in SSIS 2008.	DQS Transformation is available
-		in SSIS 2012.
-Change Data Capture	Introduced in SSIS 2008. But	CDC ControlTask available to
-(CDC)	there is no task to support CDC	support CDC in SSIS 2012.
-	in SSIS 2008.	
-Data Flow Tap	No Data Tap Available in SSIS	Data Tap Available in SSIS 2012.
-	2008.	
-
-
-
-
-5.	Architecture of SSIS?
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 6.	How to organize a SSIS Package on production?
 
@@ -551,15 +212,6 @@ Redirect Row: The error or the truncation data row is directed to the error outp
 Event handlers: -
  
 
-Event Handlers can perform multiple tasks like:
- 
-
-●	Cleaning up temp data storage or managing auditing history based on the package running or finishing an action.
-●	Retrieving and capturing system information before a package executes.
-
-●	Setting an email alert when a warning occurs or when a task fails.
-
-OnError,OnInformation,OnPostExecute,OnPostValidate,OnProgress,OnTaskFailed,OnVariableValueChange d & OnWarning.
 
 
 logging mode property.
@@ -579,15 +231,6 @@ Scatter Plot
 
 
 
-Package level and project level deployment: -
-
-Package Level Deployment(SQL Server 2005/8): - It will store the packages to the file system or msdb database. Package configurations files need to be done at the package level. Project parameters are not supported in this.
-
-Convert to Package Deployment Model.
-CreateDeploymentUtility property to True
-AllowConfigurationChanges property is a key setting as well, and when set to True,
-
-project level deployment(SQL 2012 onwards): - Right click on the project and deploy it will deploy all the packages in single shot. It will create an ispac file and deploy it to the server. It will store the ssis catalog.
 
 How to achieve parallelism in SSIS?
 
