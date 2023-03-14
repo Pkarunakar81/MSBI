@@ -1,1 +1,0 @@
-Transactions: COMMIT, ROLLBACK, Error Handling
